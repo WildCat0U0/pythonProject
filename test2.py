@@ -11,6 +11,9 @@ from sklearn.ensemble import RandomForestClassifier
 train = pd.read_csv("train.csv")
 train.set_index('Loan_ID', inplace=True)
 test = pd.read_csv("test.csv")
+test1 = test
+# test.set_index('Loan_ID', inplace=True)
+
 
 
 train["Gender"] = train["Gender"].map({'Female': 0, 'Male': 1})
@@ -34,13 +37,15 @@ imputer = SimpleImputer(strategy="mean")
 train = pd.DataFrame(imputer.fit_transform(train), columns=train.columns)
 
 #  查看数据集的缺失值情况并处理
-test.dropna(inplace=True)
-
+test.dropna(subset=["Gender","Married","Dependents","Education","Self_Employed","ApplicantIncome","CoapplicantIncome","LoanAmount","Loan_Amount_Term","Credit_History","Property_Area"],inplace=True)
+new_df = pd.DataFrame(test['Loan_ID'])
+test1 = test.copy()
+test.set_index('Loan_ID', inplace=True)
 
 
 #  对类别变量进行编码
 train = pd.get_dummies(train, drop_first=True)
-test = pd.get_dummies(test, drop_first=True)
+# test = pd.get_dummies(test, drop_first=True)
 
 #  定义特征变量和目标变量
 X_train = train.drop("Loan_Status", axis=1)
@@ -100,9 +105,18 @@ print(classification_report(y_val, y_pred_rf))
 
 
 #    给测试集进行预测并将结果保存
-test["Loan_Status"] = rf_best.predict(X_test)  # 用模型预测结果
-test["Loan_Status"] = test["Loan_Status"].apply(lambda x: 'Y' if x == 1 else 'N')  # 将结果转换为Y和N
-pd.DataFrame(test["Loan_Status"]).to_csv('result.csv', index=False)
+# print(test.head(5))
+# a = []
+# a = rf_best.predict(X_test)
+# print(a)
+print(test1.head(5))
+
+test1["Loan_Status"] = rf_best.predict(X_test)  # 用模型预测结果
+test1["Loan_Status"] = test1["Loan_Status"].apply(lambda x: 'Y' if x == 1 else 'N')  # 将结果转换为Y和N
+pd.DataFrame(test1, columns=["Loan_ID", "Loan_Status"]).to_csv('submission.csv', index=False)  # 保存结果
+# test.set_index("Loan_ID")[["Loan_Status"]].to_csv("submission.csv")
+# test[["Loan_ID", "Loan_Status"]].to_csv("submission.csv", index=False)
+# pd.DataFrame(test["Loan_Status"]).to_csv('submission.csv', index=False)
 
 # #    将结果保存为csv文件
 # test.set_index("Loan_ID")[["Loan_Status"]].to_csv("submission.csv")

@@ -6,6 +6,8 @@ from sklearn.model_selection import train_test_split, cross_val_score, GridSearc
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 #  读取数据集
 train = pd.read_csv("train.csv")
@@ -69,6 +71,14 @@ y_pred_logreg = logreg_best.predict(X_val)
 print(confusion_matrix(y_val, y_pred_logreg))
 print(classification_report(y_val, y_pred_logreg))
 
+# logistic 结果可视化
+sns.heatmap(pd.crosstab(y_val, y_pred_logreg), annot=True, cmap='YlGnBu') # 画混淆矩阵图
+plt.title('Confusion Matrix of Logistic')  # 图标题
+plt.xlabel('Predicted Labels')  # x、y轴标题
+plt.ylabel('True Labels')   # x、y轴标题
+plt.show()
+
+
 #  建立决策树模型，并使用交叉验证评估准确率，使用网格搜索来寻找最佳参数组合
 dtree = DecisionTreeClassifier()
 param_grid = {'max_depth': [2, 4, 6, 8]}
@@ -83,6 +93,14 @@ y_pred_dtree = dtree_best.predict(X_val)
 print(confusion_matrix(y_val, y_pred_dtree))
 print(classification_report(y_val, y_pred_dtree))
 
+# 决策树结果可视化
+sns.heatmap(pd.crosstab(y_val, y_pred_dtree), annot=True, cmap='YlGnBu') # 画混淆矩阵图
+plt.title('Confusion Matrix of DecisionTree')  # 图标题
+plt.xlabel('Predicted Labels')  # x、y轴标题
+plt.ylabel('True Labels')   # x、y轴标题
+plt.show()
+
+
 #  建立随机森林模型，并使用交叉验证评估准确率，使用网格搜索来寻找最佳参数组合
 rf = RandomForestClassifier(n_estimators=100, random_state=0)
 param_grid = {'max_depth': [2, 4, 6, 8], 'min_samples_split': [2, 4, 6], 'min_samples_leaf': [1, 2, 3]}
@@ -96,6 +114,14 @@ print("Random  Forest  Accuracy:  %0.2f  (+/-  %0.2f)" % (scores.mean(), scores.
 y_pred_rf = rf_best.predict(X_val)
 print(confusion_matrix(y_val, y_pred_rf))
 print(classification_report(y_val, y_pred_rf))
+
+# 随机森林树结果可视化
+sns.heatmap(pd.crosstab(y_val, y_pred_rf), annot=True, cmap='YlGnBu') # 画混淆矩阵图
+plt.title('Confusion Matrix of Random Forest')  # 图标题
+plt.xlabel('Predicted Labels')  # x、y轴标题
+plt.ylabel('True Labels')   # x、y轴标题
+plt.show()
+
 
 # # 给test数据集给予预测
 # y_pred_test = rf_best.predict(X_test)

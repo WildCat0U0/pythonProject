@@ -8,6 +8,11 @@ from sklearn.metrics import classification_report
 import pandas as pd
 import seaborn as sns
 
+# 机器学习 第三周实验代码
+# submission.csv # 用于存放预测结果
+# shuizhi.csv # 用于存放训练数据
+# test_1.py 用于处理数据
+# test3.py  用于处理数据
 #  读入数据
 df = pd.read_csv('shuizhi.csv')
 

@@ -8,7 +8,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+plt.rcParams['font.sans-serif'] = ['SimHei']
 #  读取数据集
 train = pd.read_csv("train.csv")
 train.set_index('Loan_ID', inplace=True)
@@ -73,9 +73,9 @@ print(classification_report(y_val, y_pred_logreg))
 
 # logistic 结果可视化
 sns.heatmap(pd.crosstab(y_val, y_pred_logreg), annot=True, cmap='YlGnBu') # 画混淆矩阵图
-plt.title('Confusion Matrix of Logistic')  # 图标题
-plt.xlabel('Predicted Labels')  # x、y轴标题
-plt.ylabel('True Labels')   # x、y轴标题
+plt.title('Logistic混淆矩阵')  # 图标题
+plt.xlabel('预测Labels')  # x、y轴标题
+plt.ylabel('真实Labels')   # x、y轴标题
 plt.show()
 
 
@@ -95,9 +95,9 @@ print(classification_report(y_val, y_pred_dtree))
 
 # 决策树结果可视化
 sns.heatmap(pd.crosstab(y_val, y_pred_dtree), annot=True, cmap='YlGnBu') # 画混淆矩阵图
-plt.title('Confusion Matrix of DecisionTree')  # 图标题
-plt.xlabel('Predicted Labels')  # x、y轴标题
-plt.ylabel('True Labels')   # x、y轴标题
+plt.title('决策树混淆矩阵')  # 图标题
+plt.xlabel('预测Labels')  # x、y轴标题
+plt.ylabel('真实Labels')   # x、y轴标题
 plt.show()
 
 
@@ -117,9 +117,9 @@ print(classification_report(y_val, y_pred_rf))
 
 # 随机森林树结果可视化
 sns.heatmap(pd.crosstab(y_val, y_pred_rf), annot=True, cmap='YlGnBu') # 画混淆矩阵图
-plt.title('Confusion Matrix of Random Forest')  # 图标题
-plt.xlabel('Predicted Labels')  # x、y轴标题
-plt.ylabel('True Labels')   # x、y轴标题
+plt.title('随机森林混淆矩阵')  # 图标题
+plt.xlabel('预测Labels')  # x、y轴标题
+plt.ylabel('真实Labels')   # x、y轴标题
 plt.show()
 
 

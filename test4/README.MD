@@ -13,7 +13,7 @@
 ## **test4_2.py**
 实际代码部分
 运行结果： 
-```K best = ```
+```K best = 2```
 ![1.png](img/1.png)
 ![img.png](img/img.png)
 图片 ```img.png```最终结果

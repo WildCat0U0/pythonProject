@@ -24,6 +24,6 @@ data_start["Lfd"] = data_start['LAST_FLIGHT_DATE'] # 最后一次飞行时间
 data_start = data_start[data_start['L'].notnull() & data_start['R'].notnull() & data_start['F'].notnull() &data_start['M'].notnull() & data_start['C'].notnull() & data_start['A'].notnull() & data_start['B'].notnull() & data_start['S1'].notnull() & data_start['Lfd'].notnull()]
 
 # 处理异常值
-data_start.dropna(inplace= True)
+data_start.dropna(inplace=True)
 data = data_start[["MEMBER_NO", "L", "R", "F", "M", "C", "A", "B", "S1", "Lfd"]]
 data.to_csv("./data.csv", index=False, sep=',', encoding='utf-8')

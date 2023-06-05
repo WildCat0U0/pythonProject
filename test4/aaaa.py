@@ -79,7 +79,7 @@ for i, ax in enumerate(axs):
     ax.plot(angles, values, 'o-', linewidth=2)
     ax.fill(angles, values, alpha=0.25)
     args1 = angles * 180 / np.pi
-    args2 = values
+    args2 = categories
     ax.set_thetagrids(args1, args2)
     ax.set_title(f"Cluster {i + 1}")
     ax.grid(True)
